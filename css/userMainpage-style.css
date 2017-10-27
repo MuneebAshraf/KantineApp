@@ -1,0 +1,33 @@
+* {
+    margin:0;
+    padding: 0;
+    outline: none;
+}
+
+html, body {
+    height: 100%;
+    background-image: url("../lib/login-background.jpg");
+}
+
+p, h1, h2, h3{
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+nav h3{
+    cursor: pointer;
+}
+nav h1{
+    flex-grow: 2;
+
+}
+nav {
+    margin: 10px auto;
+    padding: 0 10px;
+    width: 95%;
+    background-color:white;
+    height: 55px;
+    border:5px hidden rgba(255, 255, 255, 0);
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+}

@@ -1,0 +1,78 @@
+* {
+    margin:0;
+    padding: 0;
+    outline: none;
+}
+
+html, body {
+    height: 100%;
+    background-image: url("../lib/login-background.jpg");
+}
+
+p, h1, h2, h3{
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+.login h1{
+    margin-bottom: 20px;
+}
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+}
+.Opret{
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 24%;
+    left: 34%;
+    transform: translate(50%,50%);
+    visibility: hidden;
+
+}
+.outline{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #fda32b;
+    padding:25px;
+    background-color: white;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+input {
+    width: 90%;
+    padding: 8px 10px;
+    margin: 10px;
+    text-align: center;
+}
+.submit {
+    padding: 8px 10px;
+    margin:20px 0 0 0;
+    width: 58%;
+}
+.switch{
+    position: absolute;
+    top:35%;
+    left:68%;
+    padding:15px;
+    background: white;
+    border: 2px solid #fda32b;
+    cursor: pointer;
+    font-size: 80%;
+    z-index: 20;
+}
+
+.error {
+    border: 2px solid darkred;
+}
+
+.success {
+    border: 2px solid greenyellow;
+}
