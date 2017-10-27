@@ -16,13 +16,12 @@ $(document).ready(function () {
             $(".login").addClass('fadeOutDown');
             $(".switch").addClass('fadeOutDown');
 
-            if (!API.Storage.load("isPersonel")){
-                window.location.href = "userMainPage.html";
-                console.log(true)
-            } else {
-                console.log(false)
 
-            }
+            if (!API.Storage.load("isPersonel"))
+            {
+                window.location.href = "userMainPage.html";
+            } else {
+                window.location.href = "staffMainPage.html"; }
         })
     });
 
@@ -44,16 +43,16 @@ $(document).ready(function () {
     });
 $(".switch").on('click',function () {
     if ($(".login").hasClass('slideOutLeft')) {
-        $(".switch").html('Har du ikke en bruger?')
-        $(".login").addClass('slideInLeft')
+        $(".switch").html('Har du ikke en bruger?');
+        $(".login").addClass('slideInLeft');
         $(".login").removeClass('slideOutLeft');
-        $(".Opret").addClass('slideOutLeft')
+        $(".Opret").addClass('slideOutLeft');
         $(".Opret").removeClass('slideInLeft');
     } else {
-        $(".switch").html('Har du en bruger?')
-        $(".login").addClass('slideOutLeft')
+        $(".switch").html('Har du en bruger?');
+        $(".login").addClass('slideOutLeft');
         $(".login").removeClass('slideInLeft');
-        $(".Opret").addClass('slideInLeft animated')
+        $(".Opret").addClass('slideInLeft animated');
         $(".Opret").removeClass('slideOutLeft');
     }
 })
