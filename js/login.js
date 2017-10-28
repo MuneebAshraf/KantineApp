@@ -16,12 +16,7 @@ $(document).ready(function () {
             $(".login").addClass('fadeOutDown');
             $(".switch").addClass('fadeOutDown');
 
-
-            if (!API.Storage.load("isPersonel"))
-            {
-                window.location.href = "userMainPage.html";
-            } else {
-                window.location.href = "staffMainPage.html"; }
+            setTimeout(loadUser,1000);
         })
     });
 
@@ -59,3 +54,12 @@ $(".switch").on('click',function () {
 
 
 });
+
+
+function loadUser() {
+    if (!API.Storage.load("isPersonel"))
+    {
+        window.location.href = "userMainPage.html";
+    } else {
+        window.location.href = "staffMainPage.html"; }
+}

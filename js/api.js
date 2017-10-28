@@ -38,8 +38,17 @@ var API = {
         getByUserId:function (id, cb) {
             API.request({method:"GET" , url: "/user/getOrdersById/"+id, headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},cb)
         },
-        create: function (data, cb) {
-            API.request({method:"POST", url: "/user/createOrder", data:data, headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},cb)
+        create: function (items, cb) {
+            API.request({
+                method:"POST",
+                url: "/user/createOrder",
+                data:
+                    {
+                        User_userId: API.Storage.load("user_id"),
+                        items: items
+                    },
+                headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},
+                cb)
         }
     },
     Items:{
@@ -76,12 +85,13 @@ var API = {
             }}, function (err, data) {
             if (err) return cb(err);
 
-            cb(null, data);
+            API.Storage.remove("BearerToken");
+            API.Storage.remove("isPersonel");
+            API.Storage.remove("user_id");
 
-        API.Storage.remove("BearerToken");
-        API.Storage.remove("isPersonel");
-        API.Storage.remove("user_id");
-        })
+            cb(null, data);
+            })
+
     },
     login: function (username, password, cb) {
      this.request({
