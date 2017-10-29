@@ -59,13 +59,43 @@ section {
 }
 
 .Order{
+    position: relative;
     grid-area: span 2 / span 2 / 2 / -1 ;
     background-color: white;
     border-radius: 5px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    opacity: 0;
 }
-.Order :first-child{
+.Order h1{
+    padding: 10px 0;
+    font-size: 180%;
     border-bottom: 2px solid black;
+}
+.Order h1 button{
+    cursor: pointer;
+    float: right;
+    padding: 10px 15px;
+    border: 2px solid #fda32b;
+    background-color: white;
+    font-size: 70%;
+    margin-top: -10px;
+    border-radius: 5px;
+}
+.Order h1 button:active{
+    background-color: #fda32b;
+}
+
+.Order :last-child{
+    position: relative;
+}
+
+#total{
+    position: absolute;
+    bottom: 3%;
+    border-top: 2px solid black;
+    width: calc(100% - 30px);
 }
 
 .items {
@@ -81,6 +111,7 @@ section {
     -ms-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
+    cursor: pointer;
 }
 
 .items::after{
