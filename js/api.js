@@ -35,8 +35,11 @@ var API = {
         makeReady: function (id,data, cb) {
             API.request({method:"POST", url: "/staff/makeReady/"+id, data: data, headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},cb)
         },
-        getByUserId:function (id, cb) {
-            API.request({method:"GET" , url: "/user/getOrdersById/"+id, headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},cb)
+        getByUserId:function (cb) {
+            API.request({method:"GET",
+                url: "/user/getOrdersById/"+ API.Storage.load("user_id"),
+                headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},
+                cb)
         },
         create: function (items, cb) {
             API.request({
@@ -48,9 +51,12 @@ var API = {
                         items: items
                     },
                 headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},
-                cb)
-        }
-    },
+                function (err, data) {
+                    if (err) return cb(err);
+
+                    cb(null, data);
+                })
+    }},
     Items:{
         getAll: function (cb) {
             API.request({
