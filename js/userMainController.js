@@ -103,6 +103,7 @@ $(document).ready(function () {
         $(".newOrder").show();
         $(".history").hide();
         $(".order").remove();
+
     });
 
 
