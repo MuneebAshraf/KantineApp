@@ -1,0 +1,115 @@
+* {
+    margin:0;
+    padding: 0;
+    outline: none;
+}
+
+html, body {
+    height: 100%;
+    background: url("../lib/login-background.jpg") no-repeat;
+}
+
+body {
+    padding-top: 20px;
+}
+
+p, h1, h2, h3, td{
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+nav h3{
+    margin-right: 20px;
+    cursor: pointer;
+    -webkit-transition: color 0.4s;
+    -moz-transition: color 0.4s;
+    -ms-transition: color 0.4s;
+    -o-transition: color 0.4s;
+    transition: color 0.4s;
+}
+
+nav h3:hover{
+    color: #fda32b;
+}
+nav h1{
+    flex-grow: 2;
+
+}
+nav {
+    margin: 0 auto;
+    padding: 0 10px;
+    width: 95%;
+    background-color:white;
+    height: 55px;
+    border:5px hidden rgba(255, 255, 255, 0);
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.ready{
+    padding-top: 15px;
+    color: greenyellow;
+}
+
+.notReady {
+    padding-top: 15px;
+    color: darkred;
+}
+.ordersContainer {
+    padding: 20px 20px 0 20px ;
+    width: calc(100% - 40px);
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: minmax(1fr, auto);
+    grid-gap: 20px;
+    grid-auto-rows: 1fr;
+}
+.order{
+    background: linear-gradient(#101010, #101010 50%, white 50%, white) 100% 100%;
+    background-size: 100% 200%;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    position: relative;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.31);
+}
+.order:hover{
+    background-position: 100% 0;
+}
+.order:hover:before{
+    content: 'Marker som klar til afhentning';
+    position: absolute;
+    top:50%;
+    left:50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    font-size: 150%;
+    z-index: 10;
+    color: white;
+    font-family: 'Helvetica', Arial, sans-serif;
+    width: 95%;
+}
+
+
+
+table {
+    position: relative;
+    width: 100%;
+    padding:15px;
+}
+
+tr :first-child{
+    text-align: left;
+}
+
+.order h4 {
+    text-align: left;
+    padding-left: 15px;
+}

@@ -1,4 +1,4 @@
-let API = {
+const SDK = {
 
     serverURL: "http://localhost:8080/api",
     request: (options,cb) =>{
@@ -13,7 +13,7 @@ let API = {
 
         //perform XHR
         $.ajax({
-            url:API.serverURL + options.url,
+            url:SDK.serverURL + options.url,
             method:options.method,
             headers: headers,
             contentType: "application/json",
@@ -29,15 +29,23 @@ let API = {
     },
     Orders:{
         getAll: (cb) => {
-            API.request({method:"GET" , url: "/staff/getOrders", headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},cb);
+            SDK.request({
+                method:"GET",
+                url: "/staff/getOrders",
+                headers:{Authorization: "Bearer " + SDK.Storage.load("BearerToken")}},
+                (err, data) => {
+                    if (err) return cb(err);
+
+                    cb(null, data);
+                })
         },
         makeReady: (id,data, cb) => {
-            API.request({method:"POST", url: "/staff/makeReady/"+id, data: data, headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},cb)
+            SDK.request({method:"POST", url: "/staff/makeReady/"+id, data: data, headers:{Authorization: "Bearer " + SDK.Storage.load("BearerToken")}},cb)
         },
         getByUserId: (cb) => {
-            API.request({method:"GET",
-                url: "/user/getOrdersById/"+ API.Storage.load("user_id"),
-                headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},
+            SDK.request({method:"GET",
+                url: "/user/getOrdersById/"+ SDK.Storage.load("user_id"),
+                headers:{Authorization: "Bearer " + SDK.Storage.load("BearerToken")}},
                 (err, data) => {
                     if (err) return cb(err);
 
@@ -45,15 +53,15 @@ let API = {
                 })
         },
         create: (items, cb) => {
-            API.request({
+            SDK.request({
                 method:"POST",
                 url: "/user/createOrder",
                 data:
                     {
-                        User_userId: API.Storage.load("user_id"),
+                        User_userId: SDK.Storage.load("user_id"),
                         items: items
                     },
-                headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},
+                headers:{Authorization: "Bearer " + SDK.Storage.load("BearerToken")}},
                 (err, data) => {
                     if (err) return cb(err);
 
@@ -62,10 +70,10 @@ let API = {
     }},
     Items:{
         getAll: (cb) => {
-            API.request({
+            SDK.request({
                 method:"GET",
                 url: "/user/getItems",
-                headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}},
+                headers:{Authorization: "Bearer " + SDK.Storage.load("BearerToken")}},
                 (err, data) => {
                     if (err) return cb(err);
 
@@ -74,36 +82,36 @@ let API = {
     }},
     Users:{
         create:(username, password, cb) => {
-            API.request({
+            SDK.request({
                 method:"POST",
                 url:"/user/createUser",
                 data:{username:username,password:password},
-                headers:{Authorization: "Bearer " + API.Storage.load("BearerToken")}}
+                headers:{Authorization: "Bearer " + SDK.Storage.load("BearerToken")}}
                 ,cb);
         }
     },
     logOut: (cb) => {
-        this.request({
+        SDK.request({
             method:"POST",
             url:"/start/logout",
             headers: {
-                Authorization: 'Bearer ' + API.Storage.load("BearerToken")
+                Authorization: 'Bearer ' + SDK.Storage.load("BearerToken")
             },
             data:{
-                "user_id": API.Storage.load("user_id")
+                "user_id": SDK.Storage.load("user_id")
             }}, (err, data) => {
             if (err) return cb(err);
 
-            API.Storage.remove("BearerToken");
-            API.Storage.remove("isPersonel");
-            API.Storage.remove("user_id");
+            SDK.Storage.remove("BearerToken");
+            SDK.Storage.remove("isPersonel");
+            SDK.Storage.remove("user_id");
 
             cb(null, data);
             })
 
     },
     login: (username, password, cb) => {
-     API.request({
+     SDK.request({
          method:"POST",
          url: "/start/login",
          data: {
@@ -113,19 +121,20 @@ let API = {
      }, (err, data) => {
          if (err) return cb(err);
 
-         API.Storage.persist("BearerToken", data.token);
-         API.Storage.persist("user_id", data.user_id);
-         API.Storage.persist("isPersonel", data.isPersonel);
+         SDK.Storage.persist("BearerToken", data.token);
+         SDK.Storage.persist("user_id", data.user_id);
+         SDK.Storage.persist("isPersonel", data.isPersonel);
 
          cb(null, data);
      })
     },
     Storage: {
+        prefix: "KantineAppSDK",
         persist: (key, value) => {
-            window.localStorage.setItem(key, (typeof value === 'object') ? JSON.stringify(value) : value)
+            window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
         },
         load: (key) => {
-            let val = window.localStorage.getItem(key);
+            const val = window.localStorage.getItem(SDK.Storage.prefix + key);
             try {
                 return JSON.parse(val);
             }
@@ -133,8 +142,8 @@ let API = {
                 return val;
             }
         },
-        remove: function (key) {
-            window.localStorage.removeItem(key)
+        remove: (key) => {
+            window.localStorage.removeItem(SDK.Storage.prefix + key);
         }
     }
 };

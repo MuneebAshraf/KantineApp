@@ -7,7 +7,7 @@ $(document).ready( () => {
         //fetch username and password from input fields
         $username = $("#login .username").val();
         $password = ($("#login .password").val());
-        API.login($username,$password, (err,data) => {
+        SDK.login($username,$password, (err, data) => {
             if(err) {
                 return $('#login .form-input').addClass('error')
             }
@@ -25,7 +25,7 @@ $(document).ready( () => {
         if ($("#Opret .username").val().length > 7 && $("#Opret .password").val().length > 7) {
             $username = $("#Opret .username").val();
             $password = ($("#Opret .password").val());
-            API.Users.create($username,$password, (err,data) => {
+            SDK.Users.create($username,$password, (err, data) => {
                 if(err) {
                     return $('#Opret .form-input').addClass('error')
                 }
@@ -63,7 +63,7 @@ $(".switch").on('click', () => {
 
 
 loadUser = () => {
-    if (!API.Storage.load("isPersonel"))
+    if (!SDK.Storage.load("isPersonel"))
     {
         window.location.href = "userMainPage.html";
     } else {
