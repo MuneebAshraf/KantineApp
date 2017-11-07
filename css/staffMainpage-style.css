@@ -65,38 +65,56 @@ nav {
     grid-auto-rows: 1fr;
 }
 .order{
+    padding: 1rem 0;
     background: linear-gradient(#101010, #101010 50%, white 50%, white) 100% 100%;
     background-size: 100% 200%;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    transition: all 0.5s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
     position: relative;
     border-radius: 5px;
     text-align: center;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.31);
+    cursor: pointer;
 }
 .order:hover{
     background-position: 100% 0;
 }
-.order:hover:before{
+.order::before{
     content: 'Marker som klar til afhentning';
     position: absolute;
-    top:50%;
+    top:10%;
     left:50%;
-    -webkit-transform: translate(-50%,-50%);
-    -moz-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    -o-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
-    font-size: 150%;
+    -webkit-transform: translate(-50%,-50%) rotateX(180deg);
+    -moz-transform: translate(-50%,-50%) rotateX(180deg);
+    -ms-transform: translate(-50%,-50%) rotateX(180deg);
+    -o-transform: translate(-50%,-50%) rotateX(180deg);
+    transform: translate(-50%,-50%) rotateX(180deg);
     z-index: 10;
-    color: white;
-    font-family: 'Helvetica', Arial, sans-serif;
     width: 95%;
+    font-size: 1%;
+    opacity: 0;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
 }
 
+.order:hover:before{
+    -webkit-transform: rotateX(0deg) translate(-50%,-50%);
+    -moz-transform: rotateX(0deg) translate(-50%,-50%);
+    -ms-transform: rotateX(0deg) translate(-50%,-50%);
+    -o-transform: rotateX(0deg) translate(-50%,-50%);
+    transform: rotateX(0deg) translate(-50%,-50%);
+    top:50%;
+    font-size: 100%;
+    opacity: 1;
+    color: white;
+    font-family: 'Helvetica', Arial, sans-serif;
+}
 
 
 table {

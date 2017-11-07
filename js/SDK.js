@@ -1,3 +1,5 @@
+
+let encryption = true;
 const SDK = {
 
     serverURL: "http://localhost:8080/api",
@@ -18,9 +20,9 @@ const SDK = {
             headers: headers,
             contentType: "application/json",
             dataType:"json",
-            data: JSON.stringify(options.data),
+            data: JSON.stringify(SDK.encrypt(JSON.stringify(options.data))),
             success: (data, status, xhr) => {
-                cb(null, data, status, xhr);
+                cb(null, SDK.decrypt(data), status, xhr);
             },
             error: (xhr, status, errorThrown) => {
                 cb({xhr:xhr, status: status, error: errorThrown});
@@ -39,8 +41,15 @@ const SDK = {
                     cb(null, data);
                 })
         },
-        makeReady: (id,data, cb) => {
-            SDK.request({method:"POST", url: "/staff/makeReady/"+id, data: data, headers:{Authorization: "Bearer " + SDK.Storage.load("BearerToken")}},cb)
+        makeReady: (id, cb) => {
+            SDK.request({method:"POST",
+                url: "/staff/makeReady/"+id,
+                headers:{Authorization: "Bearer " + SDK.Storage.load("BearerToken")}},
+                (err) => {
+                    if (err) return cb(err);
+
+                    cb(null);
+                })
         },
         getByUserId: (cb) => {
             SDK.request({method:"GET",
@@ -143,16 +152,38 @@ const SDK = {
             }
         },
         remove: (key) => {
+            console.log(SDK.Storage.prefix + key);
             window.localStorage.removeItem(SDK.Storage.prefix + key);
         }
+    },
+    encrypt: (toBeEncrypted) => {
+        if(encryption)
+        {
+            if(toBeEncrypted !== undefined && toBeEncrypted.length !== 0)
+            {
+                const key = ['Y','O','L','O'];
+                let isEncrypted= "";
+                for (let i=0; i < toBeEncrypted.length ; i++){
+                    isEncrypted += (String.fromCharCode((toBeEncrypted.charAt(i)).charCodeAt(0) ^ (key[i % key.length]).charCodeAt(0)))
+                }
+                return isEncrypted
+            }
+        } else{
+            return toBeEncrypted
+        }
+    },
+    decrypt: (toBeDecrypted) => {
+        if (encryption) {
+            if (toBeDecrypted !== undefined && toBeDecrypted.length !== 0) {
+                const key = ['Y', 'O', 'L', 'O'];
+                let isDecrypted = "";
+                for (let i = 0; i < toBeDecrypted.length; i++) {
+                    isDecrypted += (String.fromCharCode((toBeDecrypted.charAt(i)).charCodeAt(0) ^ (key[i % key.length]).charCodeAt(0)))
+                }
+                return JSON.parse(isDecrypted);
+            }
+            } else {
+            return JSON.parse(toBeDecrypted)
+        }
     }
-};
-
-encryptXOR = (toBeEncrypted) => {
-    const key = ['Y','O','L','O'];
-    let isEncrypted= "";
-    for (let i=0; i < toBeEncrypted.length ; i++){
-        isEncrypted += (String.fromCharCode((toBeEncrypted.charAt(i)).charCodeAt(0) ^ (key[i % key.length]).charCodeAt(0)))
-    }
-    return isEncrypted
-};
+    };

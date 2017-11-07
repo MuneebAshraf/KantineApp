@@ -3,7 +3,7 @@ $(document).ready( () => {
     const history = $(".ordersContainer");
     SDK.Items.getAll( (err, items) => {
         if (err) {
-            return window.location.href = "index.html";
+            return console.log(err)
         }
 
         let total = 0;
