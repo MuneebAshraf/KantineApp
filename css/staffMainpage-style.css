@@ -47,12 +47,10 @@ nav {
 }
 
 .ready{
-    padding-top: 15px;
     color: greenyellow;
 }
 
 .notReady {
-    padding-top: 15px;
     color: darkred;
 }
 .ordersContainer {

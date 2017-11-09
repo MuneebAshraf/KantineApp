@@ -2,6 +2,7 @@ $(window).ready(() => {
 
 SDK.Orders.getAll((err, orders) => {
     if(err)
+        return window.location.href="index.html";
 
 
     for (let i = 0 ; i < orders.length ; i++) {
@@ -64,8 +65,6 @@ SDK.Orders.getAll((err, orders) => {
 
 
 });
-
-
 
 
 $(".logout").on('click', () => {
