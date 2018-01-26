@@ -1,4 +1,4 @@
-
+//en variable til at slå kryptering til og fra
 let encryption = true;
 const SDK = {
 
@@ -152,7 +152,6 @@ const SDK = {
             }
         },
         remove: (key) => {
-            console.log(SDK.Storage.prefix + key);
             window.localStorage.removeItem(SDK.Storage.prefix + key);
         }
     },

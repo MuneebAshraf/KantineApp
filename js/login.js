@@ -1,6 +1,7 @@
 
 $(document).ready( () => {
 //handler for click on submit in login form
+
     $(".login").on('click','.submit', (e) => {
         //prevent page reload
         e.preventDefault();
@@ -8,9 +9,8 @@ $(document).ready( () => {
         let username = $("#login .username").val();
         let password = ($("#login .password").val());
         SDK.login(username,password, (err, data) => {
-            if(err) {
-                return $('#login .form-input').addClass('error')
-            }
+            if(err) {return $('#login .form-input').addClass('error')}
+
             $("#login .form-input").addClass('success');
             $(".login").removeClass('slideInLeft');
             $(".login").addClass('fadeOutDown');
